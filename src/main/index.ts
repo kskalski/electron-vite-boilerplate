@@ -1,6 +1,7 @@
 import { app, shell, BrowserWindow } from 'electron'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import install, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 
 function createWindow(): void {
   // Create the browser window.
@@ -51,6 +52,12 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
+
+  console.log("installing");
+  install(VUEJS_DEVTOOLS)
+  .then((name) => console.log(`Added Extension:  ${name}`))
+  .catch((err) => console.log('An error occurred: ', err));
+  console.log("after");
 
   createWindow()
 
